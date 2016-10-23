@@ -1,0 +1,26 @@
+<!-- Main -->
+				<div id="main-wrapper">
+					<div class="container">
+					  <div class="row 200%"  ng-repeat="thisArticle in thisData|limitTo:9">
+						<div id="content">
+
+							<!-- Content -->
+								<article>
+									<h2>{{thisData[$index].title}}</h2>
+									<h3>{{thisData[$index].author}}</h3><p>{{thisData[$index].publishedAt}}</p>
+								<a href="{{thisData[$index].url}}" class="image featured"><img class="articleThumb" src="{{thisData[$index].urlToImage}}"></a>
+									
+
+									
+									<p>{{thisData[$index].description}}</p>
+
+									<footer>
+									<a href="{{thisData[$index].urlToImage}}" class="button icon fa-info-circle">Find out more</a>
+								</footer>
+								<hr>
+								</article>
+
+						</div>
+					  </div>
+					</div>
+				</div>
