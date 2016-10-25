@@ -1007,10 +1007,22 @@ input, select, textarea {
   line-height: 2.25em;
   height: 50px; }
 
+#subhead {
+  vertical-align: baseline; }
+
 a {
   color: #000000; }
   a:hover {
     text-decoration: none; }
+
+a.button:hover {
+  color: #ddd; }
+
+a.button:active {
+  color: #ddd; }
+
+header a:hover {
+  color: #ddd; }
 
 h1, h2, h3, h4, h5, h6 {
   color: #444;
@@ -1220,6 +1232,11 @@ table {
   top: 7em; }
 
 /* Button */
+#moreButton {
+  position: absolute;
+  width: auto;
+  bottom: 0; }
+
 input[type="button"],
 input[type="submit"],
 input[type="reset"],
@@ -1291,6 +1308,12 @@ button,
   .button.big {
     font-size: 2.25em;
     padding: 0.8em 0.9em; }
+  input[type="button"].centered,
+  input[type="submit"].centered,
+  input[type="reset"].centered,
+  button.centered,
+  .button.centered {
+    width: 100%; }
 
 /* List */
 ul.default {
@@ -1324,6 +1347,9 @@ ol.default {
     padding-left: 0.25em; }
 
 /* Box */
+#articleBox {
+  display: flex; }
+
 .box {
   background: #fff;
   border-radius: 6px;
@@ -1332,6 +1358,7 @@ ol.default {
   .box.feature {
     padding: 0; }
     .box.feature .inner {
+      margin-bottom: 4em;
       padding: 4em 2em 3em 2em; }
     .box.feature h2 {
       font-size: 1.35em; }
@@ -1948,9 +1975,9 @@ ol.default {
     transform: translateY(0); } }
 
 .ng-enter {
-  animation: scaleUp 1.0s both ease-in;
+  animation: scaleUp 0.5s both ease-in;
   z-index: 8888; }
 
 .ng-leave {
-  animation: slideOutLeft 0.5s both ease-in;
+  animation: slideOutLeft 0.3s both ease-in;
   z-index: 8889; }

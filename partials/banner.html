@@ -2,20 +2,25 @@
 				<div id="banner-wrapper">
 					<div id="banner" class="box container">
 						<div class="row">
-							<div class="7u 12u(medium)">
-								<h2>{{ $parent.message }}</h2>
-								<p><a class="icon fa-newspaper-o" href="https://newsapi.org">
-								Powered by News API</a></p>
-								<input type="text" id="newsSources" placeholder="techcrunch" ng-model="selected" uib-typeahead="thisSource.id for thisSource in $parent.news.sources | filter:$viewValue" typeahead-focus>
-								
-							</div>
+							
 							<div class="5u 12u(medium)">
 								
 								<ul>
-									<!-- <input type="text" ng-model="message"> -->
-									<li><a class="button big icon fa-arrow-circle-right" ng-click="goAPI()">big button</a></li>
+									<!-- <input type="text" ng-model="$parent.message"> -->
+									<li><a id="bigButton" class="button big icon fa-arrow-circle-right" ng-click="goAPI()">extra extra</a></li>
 									<!-- <li><a href="#" class="button alt big icon fa-question-circle">another one	</a></li> -->
+									<input type="text" id="newsSources" placeholder="{{thisSource.name}}" ng-model="selected" uib-typeahead="thisSource.id as thisSource.name for thisSource in $parent.news.sources | filter:$viewValue" typeahead-focus typeahead-on-select="sourceSelected()">
+									<li><p>{{$parent.displaySource}}</p></li>
 								</ul>
+
+							</div>
+
+							<div class="7u 12u(medium)">
+								<h2>{{ $parent.message }}</h2>
+								<p id="subhead"><a class="icon fa-newspaper-o" href="https://newsapi.org">
+								Powered by News API</a></p>
+								
+								
 							</div>
 						</div>
 					</div>

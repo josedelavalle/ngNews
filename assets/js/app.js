@@ -4,7 +4,7 @@ app.config(['$routeProvider', '$locationProvider', function($routeProvider, $loc
   // $locationProvider.html5Mode(true);
   $routeProvider
    .when('/', {
-    templateUrl: 'main.html'
+    templateUrl: 'main.html',
     
     // resolve: {
     //   // I will cause a 1 second delay
@@ -16,16 +16,16 @@ app.config(['$routeProvider', '$locationProvider', function($routeProvider, $loc
     // }
   })
   .when('/2', {
-    templateUrl: 'left-sidebar.html'
-   
+    templateUrl: 'left-sidebar.html',
+    
   })
   .when('/3', {
-  	templateUrl: 'right-sidebar.html'
-  
+  	templateUrl: 'right-sidebar.html',
+    
   })
   .when('/4', {
-  	templateUrl: 'no-sidebar.html'
-  	
+  	templateUrl: 'no-sidebar.html',
+    
   })
   .otherwise({
   	redirectTo: '/'
@@ -37,7 +37,7 @@ app.controller('appController', function($scope, $route, $http, $routeParams, $l
      $scope.$route = $route;
      $scope.$location = $location;
      $scope.$routeParams = $routeParams;
-     $scope.message = "News Source Picker";
+     $scope.message = "Read all about it";
      $scope.submessage = "Powered by News API";
      $scope.source="techcrunch";
      $http.get('https://newsapi.org/v1/sources?language=en')
@@ -49,16 +49,20 @@ app.controller('appController', function($scope, $route, $http, $routeParams, $l
       });
 
      
-
+     $scope.sourceSelected = function() {
+       console.log(this);
+       $scope.source = this.selected;
+       $scope.displaySource = $scope.source;
+       console.log($scope.selected);
+       $scope.goAPI();
+       $scope.selected = "";
+       $scope.apply;
+       
+     };
      $scope.goAPI = function() {
-      var thisSource;
-       thisSource = document.getElementById('newsSources');
-       //console.log(thisSource);
-       if (thisSource===null) {
-          thisSource='techcrunch';
-       } else {
-          thisSource=thisSource.value;
-       };
+       var thisSource;
+       thisSource = $scope.source;
+       
        var thisURL = encodeURI("https://newsapi.org/v1/articles?source=" + thisSource + "&apiKey=fd3dd1dc190444ebbfce01a08c3c3760");
           // console.log(thisURL);
           $scope.newData = $http.get(thisURL)
@@ -156,5 +160,14 @@ app.directive('typeaheadFocus', function () {
       };
     }
   };
+});
+app.filter('date', function($filter)
+{
+    return function(input)
+    {
+        if(input === null){ return ""; }
+        var _date = $filter('date')(new Date(input), 'dd/MM/yyyy');
+        return _date.toUpperCase();
+    };
 });
 

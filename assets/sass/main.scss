@@ -76,15 +76,28 @@
 		line-height: 2.25em;
 		height:50px;
 	}
-
+	#subhead {
+		vertical-align:baseline;
+	}
 	a {
 		color: #000000;
 		// text-decoration: underline;
 
 		&:hover {
+			
 			text-decoration: none;
 		}
 	}
+    a.button:hover {
+		color:#ddd;
+	}
+	a.button:active {
+		color:#ddd;
+	}
+	header a:hover {
+		color:#ddd;
+	}
+	
 
 	h1, h2, h3, h4, h5, h6 {
 		color: #444;
@@ -283,7 +296,7 @@
 	}
 
 /* Image */
-
+	
 	.image {
 		display: inline-block;
 		outline: 0;
@@ -339,6 +352,7 @@
 			top: 0;
 			left: 0;
 			opacity: 1.0;
+			// display:felx;
 		}
 
 		#work .row.images.inactive .image {
@@ -363,6 +377,11 @@
 
 /* Button */
 
+	#moreButton {
+		position:absolute;
+		width:auto;
+		bottom:0;
+	}
 	input[type="button"],
 	input[type="submit"],
 	input[type="reset"],
@@ -416,6 +435,10 @@
 		&.big {
 			font-size: 2.25em;
 			padding: 0.8em 0.9em;
+		}
+
+		&.centered {
+			width:100%;
 		}
 	}
 
@@ -471,7 +494,10 @@
 	}
 
 /* Box */
+	#articleBox {
+		display:flex;
 
+	}
 	.box {
 		background: #fff;
 		border-radius: 6px;
@@ -482,7 +508,7 @@
 			padding: 0;
 
 			.inner {
-
+				margin-bottom:4em;
 				padding: 4em 2em 3em 2em;
 			}
 
@@ -639,6 +665,8 @@
 			vertical-align: middle;
 			margin: 0 0 0 1.25em;
 		}
+
+		
 	}
 
 /* Nav */
@@ -1386,7 +1414,7 @@
 }
 
 
-.ng-enter          { animation: scaleUp 1.0s both ease-in; z-index: 8888; }
-.ng-leave           { animation: slideOutLeft 0.5s both ease-in; z-index: 8889; }
+.ng-enter          { animation: scaleUp 0.5s both ease-in; z-index: 8888; }
+.ng-leave           { animation: slideOutLeft 0.3s both ease-in; z-index: 8889; }
 
 
