@@ -9,10 +9,11 @@
 
 
 						<div class="row images">
-							<div id="articleBox" class="col-xs-12 col-md-6 col-lg-4" ng-repeat="thisArticle in thisData">
+							<div id="articleBox" class="col-xs-12 col-md-6 col-lg-4" ng-repeat="thisArticle in thisData | limitTo:6">
 								<section class="box feature">
 									<a href="{{thisArticle.url}}" class="image featured from-left">
-										<img class="articleThumb" ng-src="{{thisArticle.urlToImage}}">
+
+										<img class="articleThumb" ng-src="{{thisArticle.urlToImage}}" onerror="this.src='images/evo.png'">
 									
 									<div class="inner">
 										<header>
@@ -22,7 +23,7 @@
 										<p>{{thisArticle.description}}</p>
 									</div>
 									</a>
-
+									
 									<a ng-href="{{thisData[$index].urlToImage}}" id="moreButton" class="button centered icon fa-info-circle">keep reading</a>
 									
 

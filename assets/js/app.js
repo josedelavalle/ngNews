@@ -69,16 +69,10 @@ app.controller('appController', function($scope, $route, $http, $routeParams, $l
             .success(function(newData) {
               
               thisLength = newData.articles.length;
+              // console.log(thisLength);
               $scope.thisData = newData.articles;
-              console.log($scope.thisData);
-              for (i = 0; i < thisLength; i = i + 3) {
-                //console.log($scope.users[i].males);
-                
-                //console.log(newData.articles[i].title);
-                $scope.images[i] = newData.articles[i].urlToImage;
-                // console.log($scope.images[i]);
-
-              }
+              // console.log($scope.thisData);
+              
               
               //$scope.data.push(newData);
             })
