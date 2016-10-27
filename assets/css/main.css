@@ -1232,9 +1232,20 @@ table {
   top: 7em; }
 
 /* Button */
+@media screen and (max-width: 1680px) {
+  #moreButton {
+    width: calc(100% - 40px); } }
+
+@media screen and (max-width: 1280px) {
+  #moreButton {
+    width: calc(100% - 25px); } }
+
+@media screen and (max-width: 736px) {
+  #moreButton {
+    width: calc(100% - 20px); } }
+
 #moreButton {
   position: absolute;
-  width: auto;
   bottom: 0; }
 
 input[type="button"],
@@ -1381,7 +1392,8 @@ ol.default {
     font-family: FontAwesome;
     font-style: normal;
     font-weight: normal;
-    text-transform: none !important; }
+    text-transform: none !important;
+    padding-left: 0.5em; }
   .icon > .label {
     display: none; }
 

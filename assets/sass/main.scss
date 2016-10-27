@@ -376,10 +376,23 @@
 			}
 
 /* Button */
-
+	@include breakpoint(xlarge) {
+		#moreButton {
+			width: calc(100% - 40px);
+		}
+	}
+	@include breakpoint(large) {
+			#moreButton {
+			width: calc(100% - 25px);
+		}
+	}
+	@include breakpoint(small) {
+			#moreButton {
+			width: calc(100% - 20px);
+		}
+	}
 	#moreButton {
 		position:absolute;
-		width:auto;
 		bottom:0;
 	}
 	input[type="button"],
@@ -537,7 +550,7 @@
 	.icon {
 		position: relative;
 		text-decoration: none;
-
+		
 		&:before {
 			-moz-osx-font-smoothing: grayscale;
 			-webkit-font-smoothing: antialiased;
@@ -545,6 +558,7 @@
 			font-style: normal;
 			font-weight: normal;
 			text-transform: none !important;
+			padding-left:0.5em;
 		}
 
 		> .label {
@@ -796,7 +810,7 @@
 		.button {
 			width: 100%;
 			margin-bottom: 0.5em;
-
+			
 			&.icon {
 				&:before {
 					position: absolute;

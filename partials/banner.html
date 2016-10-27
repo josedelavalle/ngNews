@@ -9,8 +9,8 @@
 									<!-- <input type="text" ng-model="$parent.message"> -->
 									<li><a id="bigButton" class="button big icon fa-arrow-circle-right" ng-click="goAPI()">extra extra</a></li>
 									<!-- <li><a href="#" class="button alt big icon fa-question-circle">another one	</a></li> -->
-									<input type="text" id="newsSources" placeholder="{{thisSource.name}}" ng-model="selected" uib-typeahead="thisSource.id as thisSource.name for thisSource in $parent.news.sources | filter:$viewValue" typeahead-focus typeahead-on-select="sourceSelected()">
-									<li><p>{{$parent.displaySource}}</p></li>
+									<input type="text" id="newsSources" placeholder="{{thisSource.name}}" ng-model="selected" uib-typeahead="thisSource.id as thisSource.name for thisSource in $parent.news.sources | filter:$viewValue" typeahead-focus typeahead-on-select="sourceSelected()" ng-change="alert('asdf')">
+									<!-- <li><p>{{$parent.displaySource}}</p></li> -->
 								</ul>
 
 							</div>
