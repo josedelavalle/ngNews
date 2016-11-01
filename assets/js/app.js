@@ -5,7 +5,7 @@ app.config(['$routeProvider', '$locationProvider', function($routeProvider, $loc
   $routeProvider
    .when('/', {
     templateUrl: 'main.html',
-    
+
     // resolve: {
     //   // I will cause a 1 second delay
     //   delay: function($q, $timeout) {
@@ -17,69 +17,64 @@ app.config(['$routeProvider', '$locationProvider', function($routeProvider, $loc
   })
   .when('/2', {
     templateUrl: 'left-sidebar.html',
-    
+
   })
   .when('/3', {
   	templateUrl: 'right-sidebar.html',
-    
+
   })
   .when('/4', {
   	templateUrl: 'no-sidebar.html',
-    
+
   })
   .otherwise({
   	redirectTo: '/'
   });
 }]);
 
-app.controller('appController', function($scope, $route, $http, $routeParams, $location, serviceName, factoryName) {
+app.controller('appController', function($scope, $route, $http, $routeParams, $location, newSourceFactory) {
      $scope.images = [];
      $scope.$route = $route;
      $scope.$location = $location;
      $scope.$routeParams = $routeParams;
      $scope.message = "Read all about it";
      $scope.submessage = "Powered by News API";
-     $scope.source="techcrunch";
-     $http.get('https://newsapi.org/v1/sources?language=en')
+     $scope.defaultSource = "techcrunch";
+     $scope.news = newSourceFactory.get();
 
-      .success(function(data, status, headers, config) {
-       
-         $scope.news = data;
-         // console.log($scope.news.sources);
-      });
+     console.log($scope.news);
 
-     
      $scope.sourceSelected = function() {
        console.log(this);
        $scope.source = this.selected;
-       $scope.displaySource = $scope.source;
-       console.log($scope.selected);
+       $scope.displaySource = $scope.defaultSource;
+       // console.log($scope.selected);
        $scope.goAPI();
        $scope.selected = "";
        $scope.apply;
-       
+
      };
      $scope.goAPI = function() {
        var thisSource;
-       thisSource = $scope.source;
-       
+       thisSource = $scope.defaultSource;
+
        var thisURL = encodeURI("https://newsapi.org/v1/articles?source=" + thisSource + "&apiKey=fd3dd1dc190444ebbfce01a08c3c3760");
           // console.log(thisURL);
           $scope.newData = $http.get(thisURL)
             .success(function(newData) {
-              
+
               thisLength = newData.articles.length;
               // console.log(thisLength);
               $scope.thisData = newData.articles;
               // console.log($scope.thisData);
-              
-              
+
+
               //$scope.data.push(newData);
             })
             .error(function (error, status){
               $scope.data.error = { message: error, status: status};
-              console.log($scope.data.error.status); 
-            }); 
+              console.log($scope.data.error.status);
+            });
         };
 
         $scope.goAPI();
@@ -89,38 +84,10 @@ app.controller('appController', function($scope, $route, $http, $routeParams, $l
      $scope.pageClass = 'page-home';
  });
 
-app.controller('leftController', function($scope, $route, $routeParams, $location) {
-     $scope.$route = $route;
-     $scope.$location = $location;
-     $scope.$routeParams = $routeParams;
-     console.log($scope.$route);
-     $scope.pageClass = 'page-left';
- });
-app.controller('rightController', function($scope, $route, $routeParams, $location) {
-     $scope.$route = $route;
-     $scope.$location = $location;
-     $scope.$routeParams = $routeParams;
-     console.log($scope.$route);
-     $scope.pageClass = 'page-right';
- });
-app.controller('noSidebarController', function($scope, $route, $routeParams, $location) {
-	 $scope.$route = $route;
-     $scope.$location = $location;
-     $scope.$routeParams = $routeParams;
-     console.log($scope.$route);
-	 $scope.pageClass = 'page-none';
+app.factory('newSourceFactory', function ($resource) {
+      return $resource(encodeURI('https://newsapi.org/v1/sources?language=en'));///:user',{user: "@user"});
 });
 
-app.service('serviceName', ['$resource', function($resource){
-	return $resource(encodeURI('https://newsapi.org/v1/sources?language=en'));
-}]);
-app.factory('factoryName', function($http) {
-  return {
-      getSources: function() {
-        return  $http.get('https://newsapi.org/v1/sources?language=en');
-      }
-  };
-});
 
 app.directive('typeaheadFocus', function () {
   return {
@@ -164,4 +131,3 @@ app.filter('date', function($filter)
         return _date.toUpperCase();
     };
 });
-
