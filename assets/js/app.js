@@ -39,53 +39,76 @@ app.controller('appController', function($scope, $route, $http, $routeParams, $l
      $scope.$routeParams = $routeParams;
      $scope.message = "Read all about it";
      $scope.submessage = "Powered by News API";
-     $scope.defaultSource = "techcrunch";
-     $scope.news = newSourceFactory.get();
+     defaultSource = "bbc-news";
+     $scope.source = defaultSource;
 
-     console.log($scope.news);
+     newSourceFactory.get().then(function (msg) {
+        for (var i = 0, len = msg.data.sources.length; i < len; i++) {
+
+          if (msg.data.sources[i].id == defaultSource) {
+            $scope.sourceDescription = msg.data.sources[i].description;
+            break;
+          }
+        }
+        console.log(i);
+        $scope.news = msg.data;
+        console.log($scope.news);
+      });;
+
+
 
      $scope.sourceSelected = function() {
        console.log(this);
        $scope.source = this.selected;
+
+       for (var i = 0, len = $scope.news.sources.length; i < len; i++) {
+            if ($scope.news.sources[i].id == this.selected) {
+              $scope.sourceDescription = $scope.news.sources[i].description;
+              break;
+            }
+        }
        $scope.displaySource = $scope.defaultSource;
-       // console.log($scope.selected);
-       $scope.goAPI();
-       $scope.selected = "";
-       $scope.apply;
+       console.log(this.selected);
+       $scope.goAPI(this.selected);
+       this.selected = "";
+
 
      };
-     $scope.goAPI = function() {
-       var thisSource;
-       thisSource = $scope.defaultSource;
-
-       var thisURL = encodeURI("https://newsapi.org/v1/articles?source=" + thisSource + "&apiKey=fd3dd1dc190444ebbfce01a08c3c3760");
-          // console.log(thisURL);
-          $scope.newData = $http.get(thisURL)
-            .success(function(newData) {
-
-              thisLength = newData.articles.length;
-              // console.log(thisLength);
-              $scope.thisData = newData.articles;
-              // console.log($scope.thisData);
+     $scope.goAPI = function(thisSource) {
 
 
-              //$scope.data.push(newData);
-            })
-            .error(function (error, status){
-              $scope.data.error = { message: error, status: status};
-              console.log($scope.data.error.status);
-            });
-        };
+     var thisURL = encodeURI("https://newsapi.org/v1/articles?source=" + thisSource + "&apiKey=fd3dd1dc190444ebbfce01a08c3c3760");
+        // console.log(thisURL);
+        $scope.newData = $http.get(thisURL)
+          .success(function(newData) {
 
-        $scope.goAPI();
-        $scope.goAPI2 = function goAPI2() {
-          alert('here');
-        };
+            thisLength = newData.articles.length;
+            // console.log(thisLength);
+            $scope.thisData = newData.articles;
+            // console.log($scope.thisData);
+
+
+            //$scope.data.push(newData);
+          })
+          .error(function (error, status){
+            $scope.data.error = { message: error, status: status};
+            console.log($scope.data.error.status);
+          });
+      };
+
+      $scope.goAPI(defaultSource);
+
      $scope.pageClass = 'page-home';
  });
 
-app.factory('newSourceFactory', function ($resource) {
-      return $resource(encodeURI('https://newsapi.org/v1/sources?language=en'));///:user',{user: "@user"});
+app.factory('newSourceFactory', function ($http) {
+        return {
+          get: function () {
+
+              return $http.get('https://newsapi.org/v1/sources?language=en');
+          }
+      };
+
 });
 
 

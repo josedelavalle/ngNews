@@ -84,7 +84,7 @@
 		// text-decoration: underline;
 
 		&:hover {
-			
+
 			text-decoration: none;
 		}
 	}
@@ -97,7 +97,7 @@
 	header a:hover {
 		color:#ddd;
 	}
-	
+
 
 	h1, h2, h3, h4, h5, h6 {
 		color: #444;
@@ -296,7 +296,7 @@
 	}
 
 /* Image */
-	
+
 	.image {
 		display: inline-block;
 		outline: 0;
@@ -338,6 +338,11 @@
 		.row {
 			display:flex;
 			flex-wrap:wrap;
+			.centered {
+				text-align: center;
+
+			}
+
 		}
 		#work .row.images .image {
 			-moz-transition: all 1s ease;
@@ -550,7 +555,7 @@
 	.icon {
 		position: relative;
 		text-decoration: none;
-		
+
 		&:before {
 			-moz-osx-font-smoothing: grayscale;
 			-webkit-font-smoothing: antialiased;
@@ -680,7 +685,7 @@
 			margin: 0 0 0 1.25em;
 		}
 
-		
+
 	}
 
 /* Nav */
@@ -810,7 +815,7 @@
 		.button {
 			width: 100%;
 			margin-bottom: 0.5em;
-			
+
 			&.icon {
 				&:before {
 					position: absolute;
@@ -1430,5 +1435,3 @@
 
 .ng-enter          { animation: scaleUp 0.5s both ease-in; z-index: 8888; }
 .ng-leave           { animation: slideOutLeft 0.3s both ease-in; z-index: 8889; }
-
-

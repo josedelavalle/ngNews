@@ -6,16 +6,12 @@
 
 							<!-- Content -->
 								<article>
-									<h2>{{thisData[$index].title}}</h2>
-									<h3>{{thisData[$index].author}}</h3><p>{{thisData[$index].publishedAt}}</p>
-								<a href="{{thisData[$index].url}}" class="image featured"><img class="articleThumb" src="{{thisData[$index].urlToImage}}"></a>
-									
-
-									
-									<p>{{thisData[$index].description}}</p>
-
+									<h2>{{thisArticle.title}}</h2>
+									<h3>{{thisArticle.author}}</h3><p>{{thisArticle.publishedAt}}</p>
+									<a mg-href="{{thisArticle.url}}" class="image featured"><img class="articleThumb" ng-src="{{thisArticle.urlToImage}}"></a>													
+									<p>{{thisArticle.description}}</p>
 									<footer>
-									<a href="{{thisData[$index].url}}" class="button icon fa-info-circle">Find out more</a>
+									<a ng-href="{{thisArticle.url}}" class="button icon fa-info-circle">Find out more</a>
 								</footer>
 								<hr>
 								</article>

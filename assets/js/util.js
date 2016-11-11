@@ -7,9 +7,9 @@
 	$.fn.navList = function() {
 
 		var	$this = $(this);
-		
+			console.log($this);
 			$a = $this.find('a'),
-		
+			console.log($a.length);
 			b = [];
 
 		$a.each(function() {

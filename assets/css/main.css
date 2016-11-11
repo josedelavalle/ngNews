@@ -1201,6 +1201,8 @@ table {
 .row {
   display: flex;
   flex-wrap: wrap; }
+  .row .centered {
+    text-align: center; }
 
 #work .row.images .image {
   -moz-transition: all 1s ease;

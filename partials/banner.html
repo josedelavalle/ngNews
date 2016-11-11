@@ -1,16 +1,28 @@
 <!-- Banner -->
 				<div id="banner-wrapper">
+					<div class="row">
+						<div class="12u centered">
+							<h2>{{source.split("-").join(" ").toUpperCase()}}</h2>
+							<div class="row">
+								<p class="3u"></p>
+								<p class="6u">{{sourceDescription}}</p>
+								<p class="3u"></p>
+							</div>
+
+						</div>
+					</div>
 					<div id="banner" class="box container">
+
 						<div class="row">
-							
+
 							<div class="5u 12u(medium)">
-								
+
 								<ul>
 									<!-- <input type="text" ng-model="$parent.message"> -->
 									<li><a id="bigButton" class="button big icon fa-arrow-circle-right" ng-click="goAPI()">extra extra</a></li>
 									<!-- <li><a href="#" class="button alt big icon fa-question-circle">another one	</a></li> -->
 									<input type="text" id="newsSources" placeholder="{{thisSource.name}}" ng-model="selected" uib-typeahead="thisSource.id as thisSource.name for thisSource in $parent.news.sources | filter:$viewValue" typeahead-focus typeahead-on-select="sourceSelected()" ng-change="alert('asdf')">
-									<!-- <li><p>{{$parent.displaySource}}</p></li> -->
+
 								</ul>
 
 							</div>
@@ -19,9 +31,11 @@
 								<h2>{{ $parent.message }}</h2>
 								<p id="subhead"><a class="icon fa-newspaper-o" href="https://newsapi.org">
 								Powered by News API</a></p>
-								
-								
+
+
 							</div>
 						</div>
+
 					</div>
+
 				</div>
