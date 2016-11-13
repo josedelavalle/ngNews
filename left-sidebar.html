@@ -3,7 +3,7 @@
 			<!-- Main -->
 				<div id="main-wrapper">
 					<div class="container">
-						<div class="row 200%" ng-repeat="thisArticle in thisData|limitTo:9">
+						<div class="row 200%" ng-repeat="thisArticle in thisData">
 							<div class="4u 12u$(medium)">
 								<div id="sidebar">
 
@@ -11,9 +11,9 @@
 
 
 										<section>
-											<h3>{{thisArticle.author}}</h3>
-											<p>{{thisArticle.publishedAt}}</p>
-											<p>{{thisArticle.description}}</p>
+											<h3>{{thisArticle.author || errorMessages.author}}</h3>
+											<p>{{thisArticle.publishedAt.substring(0, 10) || errorMessages.publish_date}}</p>
+											<p>{{thisArticle.description || errorMessages.description}}</p>
 											<!-- <ul class="style2">
 												<li><a href="#">Amet turpis, feugiat et sit amet</a></li>
 												<li><a href="#">Ornare in hendrerit in lectus</a></li>
@@ -36,7 +36,7 @@
 
 											<h2>{{thisData[$index].title}}</h2>
 											<a ng-href="{{thisData[$index].url}}" class="image featured">
-												<img class="articleThumb" ng-src="{{thisData[$index].urlToImage}}">
+												<img class="articleThumb" ng-src="{{thisData[$index].urlToImage || errorMessages.image}}">
 											</a>
 
 										</article>

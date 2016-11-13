@@ -39,14 +39,23 @@ app.controller('appController', function($scope, $route, $http, $routeParams, $l
      $scope.$routeParams = $routeParams;
      $scope.message = "Read all about it";
      $scope.submessage = "Powered by News API";
-     defaultSource = "bbc-news";
-     $scope.source = defaultSource;
+     defaultSource = "techradar";
+     $scope.errorMessages = {image: 'images/evo.png',
+                            author: 'Author Not Provided',
+                            publish_date: 'Publish Date Not Provided',
+                            title: 'Title Not Provided',
+                            description: 'Description Not Provided'};
+
+     $scope.source = {};
 
      newSourceFactory.get().then(function (msg) {
         for (var i = 0, len = msg.data.sources.length; i < len; i++) {
 
           if (msg.data.sources[i].id == defaultSource) {
-            $scope.sourceDescription = msg.data.sources[i].description;
+            $scope.source.description = msg.data.sources[i].description;
+            $scope.source.url = msg.data.sources[i].url;
+            $scope.source.name = msg.data.sources[i].name;
+            $scope.source.category = msg.data.sources[i].category;
             break;
           }
         }
@@ -58,17 +67,20 @@ app.controller('appController', function($scope, $route, $http, $routeParams, $l
 
 
      $scope.sourceSelected = function() {
-       console.log(this);
-       $scope.source = this.selected;
 
        for (var i = 0, len = $scope.news.sources.length; i < len; i++) {
-            if ($scope.news.sources[i].id == this.selected) {
-              $scope.sourceDescription = $scope.news.sources[i].description;
+
+            if (this.selected == $scope.news.sources[i].id) {
+
+              $scope.source.description = $scope.news.sources[i].description;
+              $scope.source.url = $scope.news.sources[i].url;
+              $scope.source.name = $scope.news.sources[i].name;
+              $scope.source.category = $scope.news.sources[i].category;
               break;
             }
         }
        $scope.displaySource = $scope.defaultSource;
-       console.log(this.selected);
+
        $scope.goAPI(this.selected);
        this.selected = "";
 
@@ -85,7 +97,7 @@ app.controller('appController', function($scope, $route, $http, $routeParams, $l
             thisLength = newData.articles.length;
             // console.log(thisLength);
             $scope.thisData = newData.articles;
-            // console.log($scope.thisData);
+             console.log($scope.thisData);
 
 
             //$scope.data.push(newData);

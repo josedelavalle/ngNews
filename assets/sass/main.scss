@@ -14,7 +14,7 @@
 	@import "libs/skel";
 
 	@include skel-breakpoints((
-		xlarge: '(max-width: 1680px)',
+		xlarge: '(max-width: 2680px)',
 		large: '(max-width: 1280px)',
 		medium: '(max-width: 980px)',
 		small: '(max-width: 736px)'
@@ -524,6 +524,7 @@
 
 		&.feature {
 			padding: 0;
+			width: 100%;
 
 			.inner {
 				margin-bottom:4em;
@@ -811,7 +812,9 @@
 			line-height: 1.35em;
 			margin: 0;
 		}
-
+		hr {
+			border-bottom: solid 1px #c9c9c9;
+		}
 		.button {
 			width: 100%;
 			margin-bottom: 0.5em;
@@ -866,7 +869,7 @@
 			}
 
 	}
-
+.fa { padding-right: 20px;}
 /* Large */
 
 	@include breakpoint(large) {
@@ -1193,6 +1196,7 @@
 
 				&.last {
 					margin-bottom: 0 !important;
+
 				}
 			}
 
@@ -1261,6 +1265,7 @@
 				&.feature {
 					margin: 20px 0 0 0 !important;
 					padding: 0;
+
 
 					.inner {
 						padding: 30px 15px 30px 15px;

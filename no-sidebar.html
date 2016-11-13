@@ -1,15 +1,18 @@
 <!-- Main -->
 				<div id="main-wrapper">
 					<div class="container">
-					  <div class="row 200%"  ng-repeat="thisArticle in thisData|limitTo:9">
+					  <div class="row 200%"  ng-repeat="thisArticle in thisData">
 						<div id="content">
 
 							<!-- Content -->
 								<article>
-									<h2>{{thisArticle.title}}</h2>
-									<h3>{{thisArticle.author}}</h3><p>{{thisArticle.publishedAt}}</p>
-									<a mg-href="{{thisArticle.url}}" class="image featured"><img class="articleThumb" ng-src="{{thisArticle.urlToImage}}"></a>													
-									<p>{{thisArticle.description}}</p>
+									<h2>{{thisArticle.title || errorMessages.title}}</h2>
+									<h3>{{thisArticle.author || errorMessages.author}}</h3>
+									<p>{{thisArticle.publishedAt.substring(0, 10) || errorMessages.publish_date}}</p>
+									<a ng-href="{{thisArticle.url}}" class="image featured">
+										<img class="articleThumb" ng-src="{{thisArticle.urlToImage || errorMessages.image}}">
+									</a>
+									<p>{{thisArticle.description || errorMessages.description}}</p>
 									<footer>
 									<a ng-href="{{thisArticle.url}}" class="button icon fa-info-circle">Find out more</a>
 								</footer>
