@@ -1,5 +1,15 @@
 @import url("font-awesome.min.css");
 @import url("http://fonts.googleapis.com/css?family=Oleo+Script:400|Open+Sans:300,300italic,600,600italic,800");
+[animate-on-change] {
+  transition: all 0.5s;
+  -webkit-transition: opacity 0.5s ease-in-out;
+  opacity: 1; }
+
+[animate-on-change].changed {
+  opacity: 0;
+  transition: none;
+  -webkit-transition: none; }
+
 /*
 	Verti by Pixelarity
 	pixelarity.com @pixelarity
@@ -1024,6 +1034,9 @@ a.button:active {
 header a:hover {
   color: #ddd; }
 
+#newsSources {
+  width: 100% !important; }
+
 h1, h2, h3, h4, h5, h6 {
   color: #444;
   font-weight: 800; }
@@ -1200,7 +1213,8 @@ table {
 /* Work */
 .row {
   display: flex;
-  flex-wrap: wrap; }
+  flex-wrap: wrap;
+  padding-bottom: 25px; }
   .row .centered {
     text-align: center; }
 

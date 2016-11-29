@@ -6,13 +6,13 @@ var es = require('event-stream');
 
 
 gulp.task('sass', function() {
-	return gulp.src('assets/sass/*.scss')
+	return gulp.src('assets/sass/**/*.scss')
 		.pipe(sass())
 		.pipe(gulp.dest('assets/css'))
 });
 
 gulp.task('scripts', function() {
-	
+
 	return gulp.src('assets/js/src/*.js')
 		.pipe(concat('all.min.js'))
 		.pipe(uglify())
@@ -22,7 +22,7 @@ gulp.task('scripts', function() {
 
 gulp.task('watch', function () {
 	gulp.watch('assets/js/src/*.js', ['scripts']);
-	gulp.watch('assets/sass/*.scss', ['sass']);
+	gulp.watch('assets/sass/**/*.scss', ['sass']);
 });
 
 gulp.task('default', ['sass','scripts','watch'], function() {

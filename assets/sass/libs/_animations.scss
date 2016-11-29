@@ -1,0 +1,10 @@
+[animate-on-change] {
+  transition: all 0.5s;
+  -webkit-transition: opacity 0.5s ease-in-out;
+  opacity: 1;
+}
+[animate-on-change].changed {
+    opacity: 0;
+    transition: none;
+    -webkit-transition: none;
+}
