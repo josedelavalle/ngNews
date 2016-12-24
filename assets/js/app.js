@@ -33,18 +33,16 @@ app.config(['$routeProvider', '$locationProvider', function($routeProvider, $loc
 }]);
 
 app.controller('appController', function($scope, getSourceData, newSourceFactory) {
-     
+    var defaultSource = "associated-press", selectedIndex;
     $scope.message = "Read all about it";
     $scope.submessage = "Powered by News API";
-    defaultSource = "associated-press";
     $scope.errorMessages = {image: 'images/evo.png',
                             author: 'Author Not Provided',
                             publish_date: 'Publish Date Not Provided',
                             title: 'Title Not Provided',
                             description: 'Description Not Provided'};
-
     $scope.source = {};
-    $scope.selectedIndex;
+    
     newSourceFactory.get().then(function (msg) {
         for (var i = 0, len = msg.data.sources.length; i < len; i++) {
 
@@ -53,50 +51,45 @@ app.controller('appController', function($scope, getSourceData, newSourceFactory
             $scope.source.url = msg.data.sources[i].url;
             $scope.source.name = msg.data.sources[i].name;
             $scope.source.category = msg.data.sources[i].category;
-            $scope.selectedIndex = i;
+            selectedIndex = i;
             break;
           }
         }
-        //console.log(i);
         $scope.news = msg.data;
-        //console.log($scope.news);
-    });;
+    });
 
     $scope.goToNextSource = function() {
-        if ($scope.selectedIndex == $scope.news.sources.length - 1) {
-          $scope.selectedIndex = 0;
+        if (selectedIndex == $scope.news.sources.length - 1) {
+          selectedIndex = 0;
         } else {
-          $scope.selectedIndex++;
+          selectedIndex++;
         }
-        //console.log($scope.selectedIndex);
-        setSource($scope.selectedIndex);
+        setSource(selectedIndex);
     };
 
     $scope.goToPrevSource = function() {
-        if ($scope.selectedIndex == 0) {
-          $scope.selectedIndex = $scope.news.sources.length - 1;
+        if (selectedIndex == 0) {
+          selectedIndex = $scope.news.sources.length - 1;
         } else {
-          $scope.selectedIndex--;
+          selectedIndex--;
         }
-        //console.log($scope.selectedIndex);
-        setSource($scope.selectedIndex);
+        setSource(selectedIndex);
     };
 
     function getRandomInt(min, max) {
         return Math.floor(Math.random() * (max - min + 1)) + min;
     }
+
     $scope.goRandom = function() {
-
-        var selectedIndex = $scope.selectedIndex;
+        var newSelectedIndex = $scope.selectedIndex;
         // make sure the random number is not the same as the last random number
-        while (selectedIndex == $scope.selectedIndex) {
-          selectedIndex = getRandomInt(0, $scope.news.sources.length - 1);
+        while (newSelectedIndex == $scope.selectedIndex) {
+          newSelectedIndex = getRandomInt(0, $scope.news.sources.length - 1);
         }
-        $scope.selectedIndex = selectedIndex;
+        selectedIndex = newSelectedIndex;
         console.log('selectedindex', selectedIndex);
-        setSource($scope.selectedIndex);
+        setSource(selectedIndex);
     };
-
 
     setSource = function(selectedIndex) {
         $scope.source.description = $scope.news.sources[selectedIndex].description;
@@ -113,7 +106,7 @@ app.controller('appController', function($scope, getSourceData, newSourceFactory
               $scope.source.url = $scope.news.sources[i].url;
               $scope.source.name = $scope.news.sources[i].name;
               $scope.source.category = $scope.news.sources[i].category;
-              $scope.selectedIndex = i;
+              selectedIndex = i;
               break;
             }
         }
