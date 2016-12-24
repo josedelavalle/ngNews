@@ -95,9 +95,10 @@
 	a.button:active {
 		color:#ddd;
 	}
-	header a:hover {
+	header a:hover:not(#byline) {
 		color:#ddd;
 	}
+	
 	#newsSources {
 		width: 100% !important;
 	}

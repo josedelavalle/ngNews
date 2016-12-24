@@ -39,7 +39,7 @@ app.controller('appController', function($scope, $route, $http, $routeParams, $l
      $scope.$routeParams = $routeParams;
      $scope.message = "Read all about it";
      $scope.submessage = "Powered by News API";
-     defaultSource = "techradar";
+     defaultSource = "associated-press";
      $scope.errorMessages = {image: 'images/evo.png',
                             author: 'Author Not Provided',
                             publish_date: 'Publish Date Not Provided',
@@ -60,9 +60,9 @@ app.controller('appController', function($scope, $route, $http, $routeParams, $l
             break;
           }
         }
-        console.log(i);
+        //console.log(i);
         $scope.news = msg.data;
-        console.log($scope.news);
+        //console.log($scope.news);
       });;
 
      $scope.goToNextSource = function() {
@@ -71,7 +71,7 @@ app.controller('appController', function($scope, $route, $http, $routeParams, $l
         } else {
           $scope.selectedIndex++;
         }
-        console.log($scope.selectedIndex);
+        //console.log($scope.selectedIndex);
         setSource($scope.selectedIndex);
      };
 
@@ -81,7 +81,7 @@ app.controller('appController', function($scope, $route, $http, $routeParams, $l
         } else {
           $scope.selectedIndex--;
         }
-        console.log($scope.selectedIndex);
+        //console.log($scope.selectedIndex);
         setSource($scope.selectedIndex);
      };
 
