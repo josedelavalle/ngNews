@@ -89,13 +89,13 @@
 			text-decoration: none;
 		}
 	}
-    a.button:hover {
-		color:#ddd;
-	}
+ //    a.button:hover {
+	// 	color:#ddd;
+	// }
 	a.button:active {
 		color:#ddd;
 	}
-	header a:hover:not(#byline) {
+	#logo a:hover:not(#byline) {
 		color:#ddd;
 	}
 	

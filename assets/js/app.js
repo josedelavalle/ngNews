@@ -32,23 +32,20 @@ app.config(['$routeProvider', '$locationProvider', function($routeProvider, $loc
   });
 }]);
 
-app.controller('appController', function($scope, $route, $http, $routeParams, $location, newSourceFactory) {
-     $scope.images = [];
-     $scope.$route = $route;
-     $scope.$location = $location;
-     $scope.$routeParams = $routeParams;
-     $scope.message = "Read all about it";
-     $scope.submessage = "Powered by News API";
-     defaultSource = "associated-press";
-     $scope.errorMessages = {image: 'images/evo.png',
+app.controller('appController', function($scope, getSourceData, newSourceFactory) {
+     
+    $scope.message = "Read all about it";
+    $scope.submessage = "Powered by News API";
+    defaultSource = "associated-press";
+    $scope.errorMessages = {image: 'images/evo.png',
                             author: 'Author Not Provided',
                             publish_date: 'Publish Date Not Provided',
                             title: 'Title Not Provided',
                             description: 'Description Not Provided'};
 
-     $scope.source = {};
-     $scope.selectedIndex;
-     newSourceFactory.get().then(function (msg) {
+    $scope.source = {};
+    $scope.selectedIndex;
+    newSourceFactory.get().then(function (msg) {
         for (var i = 0, len = msg.data.sources.length; i < len; i++) {
 
           if (msg.data.sources[i].id == defaultSource) {
@@ -63,9 +60,9 @@ app.controller('appController', function($scope, $route, $http, $routeParams, $l
         //console.log(i);
         $scope.news = msg.data;
         //console.log($scope.news);
-      });;
+    });;
 
-     $scope.goToNextSource = function() {
+    $scope.goToNextSource = function() {
         if ($scope.selectedIndex == $scope.news.sources.length - 1) {
           $scope.selectedIndex = 0;
         } else {
@@ -73,9 +70,9 @@ app.controller('appController', function($scope, $route, $http, $routeParams, $l
         }
         //console.log($scope.selectedIndex);
         setSource($scope.selectedIndex);
-     };
+    };
 
-     $scope.goToPrevSource = function() {
+    $scope.goToPrevSource = function() {
         if ($scope.selectedIndex == 0) {
           $scope.selectedIndex = $scope.news.sources.length - 1;
         } else {
@@ -83,22 +80,35 @@ app.controller('appController', function($scope, $route, $http, $routeParams, $l
         }
         //console.log($scope.selectedIndex);
         setSource($scope.selectedIndex);
-     };
+    };
 
-     setSource = function(selectedIndex) {
+    function getRandomInt(min, max) {
+        return Math.floor(Math.random() * (max - min + 1)) + min;
+    }
+    $scope.goRandom = function() {
+
+        var selectedIndex = $scope.selectedIndex;
+        // make sure the random number is not the same as the last random number
+        while (selectedIndex == $scope.selectedIndex) {
+          selectedIndex = getRandomInt(0, $scope.news.sources.length - 1);
+        }
+        $scope.selectedIndex = selectedIndex;
+        console.log('selectedindex', selectedIndex);
+        setSource($scope.selectedIndex);
+    };
+
+
+    setSource = function(selectedIndex) {
         $scope.source.description = $scope.news.sources[selectedIndex].description;
         $scope.source.url = $scope.news.sources[selectedIndex].url;
         $scope.source.name = $scope.news.sources[selectedIndex].name;
         $scope.source.category = $scope.news.sources[selectedIndex].category;
         $scope.goAPI($scope.news.sources[selectedIndex].id);
-     };
+    };
 
-     $scope.sourceSelected = function() {
-
-       for (var i = 0, len = $scope.news.sources.length; i < len; i++) {
-
+    $scope.sourceSelected = function() {
+      for (var i = 0, len = $scope.news.sources.length; i < len; i++) {
             if (this.selected == $scope.news.sources[i].id) {
-
               $scope.source.description = $scope.news.sources[i].description;
               $scope.source.url = $scope.news.sources[i].url;
               $scope.source.name = $scope.news.sources[i].name;
@@ -107,48 +117,34 @@ app.controller('appController', function($scope, $route, $http, $routeParams, $l
               break;
             }
         }
-       $scope.displaySource = $scope.defaultSource;
+      $scope.goAPI(this.selected);
+      this.selected = "";
+    };
 
-       $scope.goAPI(this.selected);
-       console.log(this.selected);
-       this.selected = "";
-
-
-     };
-     $scope.goAPI = function(thisSource) {
-
-
-     var thisURL = encodeURI("https://newsapi.org/v1/articles?source=" + thisSource + "&apiKey=fd3dd1dc190444ebbfce01a08c3c3760");
-        // console.log(thisURL);
-        $scope.newData = $http.get(thisURL)
-          .success(function(newData) {
-
-            thisLength = newData.articles.length;
-            // console.log(thisLength);
-            $scope.thisData = newData.articles;
-             console.log($scope.thisData);
-
-
-            //$scope.data.push(newData);
-          })
-          .error(function (error, status){
-            $scope.data.error = { message: error, status: status};
-            console.log($scope.data.error.status);
-          });
-      };
-
-      $scope.goAPI(defaultSource);
-
-     $scope.pageClass = 'page-home';
+    $scope.goAPI = function(thisSource) {
+        getSourceData.get(thisSource).then(function (msg) {
+          console.log(msg)
+            $scope.thisData = msg.data.articles;
+        });      
+    };
+    $scope.goAPI(defaultSource);
  });
 
-app.factory('newSourceFactory', function ($http) {
-        return {
-          get: function () {
+app.factory('getSourceData', function($http) {
+    return {
+      get: function (thisSource) {
+          var thisURL = encodeURI("https://newsapi.org/v1/articles?source=" + thisSource + "&apiKey=fd3dd1dc190444ebbfce01a08c3c3760");
+          return $http.get(thisURL);
+      }
+    };
+});
 
-              return $http.get('https://newsapi.org/v1/sources?language=en');
-          }
-      };
+app.factory('newSourceFactory', function ($http) {
+    return {
+      get: function () {
+          return $http.get('https://newsapi.org/v1/sources?language=en');
+      }
+    };
 
 });
 
@@ -198,6 +194,7 @@ app.directive('typeaheadFocus', function () {
     }
   };
 });
+
 app.filter('date', function($filter)
 {
     return function(input)
