@@ -1024,6 +1024,9 @@ a {
   color: #000000; }
   a:hover {
     text-decoration: none; }
+  a:focus:not(#byline, #nav) {
+    color: #ffffff;
+    text-decoration: none; }
 
 a.button:active {
   color: #ddd; }
@@ -2013,9 +2016,9 @@ ol.default {
     transform: translateY(0); } }
 
 .ng-enter {
-  animation: scaleUp 0.5s both ease-in;
+  animation: scaleUp 0.5s both ease-in-out;
   z-index: 8888; }
 
 .ng-leave {
-  animation: slideOutLeft 0.3s both ease-in;
+  animation: slideOutLeft 0.3s both ease-in-out;
   z-index: 8889; }

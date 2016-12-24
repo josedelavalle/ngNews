@@ -88,6 +88,10 @@
 
 			text-decoration: none;
 		}
+		&:focus:not(#byline, #nav) {
+			color: #ffffff;
+			text-decoration: none;
+		}
 	}
  //    a.button:hover {
 	// 	color:#ddd;
@@ -98,6 +102,8 @@
 	#logo a:hover:not(#byline) {
 		color:#ddd;
 	}
+
+	
 	
 	#newsSources {
 		width: 100% !important;
@@ -1451,5 +1457,5 @@
 }
 
 
-.ng-enter          { animation: scaleUp 0.5s both ease-in; z-index: 8888; }
-.ng-leave           { animation: slideOutLeft 0.3s both ease-in; z-index: 8889; }
+.ng-enter          { animation: scaleUp 0.5s both ease-in-out; z-index: 8888; }
+.ng-leave           { animation: slideOutLeft 0.3s both ease-in-out; z-index: 8889; }

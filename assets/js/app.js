@@ -1,7 +1,7 @@
 var app = angular.module('myApp', ['ngRoute','ngResource','ngAnimate','ngSanitize', 'ui.bootstrap']);
 
 app.config(['$routeProvider', '$locationProvider', function($routeProvider, $locationProvider) {
-  // $locationProvider.html5Mode(true);
+  $locationProvider.html5Mode(true);
   $routeProvider
    .when('/', {
     templateUrl: 'main.html',
@@ -32,7 +32,7 @@ app.config(['$routeProvider', '$locationProvider', function($routeProvider, $loc
   });
 }]);
 
-app.controller('appController', function($scope, getSourceData, newSourceFactory) {
+app.controller('appController', function($scope, $location, getSourceData, newSourceFactory) {
     var defaultSource = "associated-press", selectedIndex;
     $scope.message = "Read all about it";
     $scope.submessage = "Powered by News API";
@@ -42,7 +42,10 @@ app.controller('appController', function($scope, getSourceData, newSourceFactory
                             title: 'Title Not Provided',
                             description: 'Description Not Provided'};
     $scope.source = {};
-    
+    $scope.$on('$routeChangeSuccess', function() {
+      $scope.pageId = $location.path().replace("/", "");
+      if (!$scope.pageId) $scope.pageId = '1';
+    });
     newSourceFactory.get().then(function (msg) {
         for (var i = 0, len = msg.data.sources.length; i < len; i++) {
 
