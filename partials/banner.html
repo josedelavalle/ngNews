@@ -2,16 +2,21 @@
 				<div id="banner-wrapper">
 					<div class="container">
 
-
+						
+						<div class="row margin-0">
+							<div class="2u centered padding-0"><i ng-click="goToPrevSource()" class="fa fa-chevron-left fa-2x padding-0"></i></div>
+							<div class="8u centered padding-0" animate-on-change='$parent.source.name'>
+								<a ng-href="{{$parent.source.url}}">
+								<h2 class="margin-0">{{$parent.source.name.toUpperCase()}}</h2></a>
+								
+							</div>
+							<div class="2u centered padding-0"><i ng-click="goToNextSource()" class="fa fa-chevron-right fa-2x padding-0"></i></div>
+						</div>
 						<div class="row">
-							<div class="12u centered" animate-on-change='$parent.source.name'>
-								<a ng-href="{{$parent.source.url}}"><h2>{{$parent.source.name.toUpperCase()}}</h2></a>
-								<p>
+							<div class="12u centered">
+								<p class="margin-0">
 									{{$parent.source.description}}
 								</p>
-
-
-
 							</div>
 						</div>
 					</div>
@@ -44,3 +49,4 @@
 					</div>
 
 				</div>
+√

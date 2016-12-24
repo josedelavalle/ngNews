@@ -345,7 +345,7 @@
 			
 			.centered {
 				text-align: center;
-
+				vertical-align: middle;
 			}
 
 
@@ -1190,7 +1190,7 @@
 			}
 
 			h2, h3, h4, h5, h6 {
-				font-size: 13pt;
+				font-size: 18pt;
 				margin: 0 0 1em 0;
 			}
 
@@ -1400,6 +1400,12 @@
 
 
 
+.padding-0 {
+	padding: 0;
+}
+.margin-0 {
+	margin: 0;
+}
 
 
 /* ANIMATIONS

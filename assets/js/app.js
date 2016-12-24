@@ -47,7 +47,7 @@ app.controller('appController', function($scope, $route, $http, $routeParams, $l
                             description: 'Description Not Provided'};
 
      $scope.source = {};
-
+     $scope.selectedIndex;
      newSourceFactory.get().then(function (msg) {
         for (var i = 0, len = msg.data.sources.length; i < len; i++) {
 
@@ -56,6 +56,7 @@ app.controller('appController', function($scope, $route, $http, $routeParams, $l
             $scope.source.url = msg.data.sources[i].url;
             $scope.source.name = msg.data.sources[i].name;
             $scope.source.category = msg.data.sources[i].category;
+            $scope.selectedIndex = i;
             break;
           }
         }
@@ -64,7 +65,33 @@ app.controller('appController', function($scope, $route, $http, $routeParams, $l
         console.log($scope.news);
       });;
 
+     $scope.goToNextSource = function() {
+        if ($scope.selectedIndex == $scope.news.sources.length - 1) {
+          $scope.selectedIndex = 0;
+        } else {
+          $scope.selectedIndex++;
+        }
+        console.log($scope.selectedIndex);
+        setSource($scope.selectedIndex);
+     };
 
+     $scope.goToPrevSource = function() {
+        if ($scope.selectedIndex == 0) {
+          $scope.selectedIndex = $scope.news.sources.length - 1;
+        } else {
+          $scope.selectedIndex--;
+        }
+        console.log($scope.selectedIndex);
+        setSource($scope.selectedIndex);
+     };
+
+     setSource = function(selectedIndex) {
+        $scope.source.description = $scope.news.sources[selectedIndex].description;
+        $scope.source.url = $scope.news.sources[selectedIndex].url;
+        $scope.source.name = $scope.news.sources[selectedIndex].name;
+        $scope.source.category = $scope.news.sources[selectedIndex].category;
+        $scope.goAPI($scope.news.sources[selectedIndex].id);
+     };
 
      $scope.sourceSelected = function() {
 
@@ -76,12 +103,14 @@ app.controller('appController', function($scope, $route, $http, $routeParams, $l
               $scope.source.url = $scope.news.sources[i].url;
               $scope.source.name = $scope.news.sources[i].name;
               $scope.source.category = $scope.news.sources[i].category;
+              $scope.selectedIndex = i;
               break;
             }
         }
        $scope.displaySource = $scope.defaultSource;
 
        $scope.goAPI(this.selected);
+       console.log(this.selected);
        this.selected = "";
 
 
