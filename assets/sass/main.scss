@@ -84,9 +84,9 @@
 		color: #000000;
 		// text-decoration: underline;
 
-		&:hover {
+		&:hover, &:focus {
 
-			text-decoration: none;
+			text-decoration: none !important;
 		}
 		&:focus:not(#byline, #nav) {
 			color: #ffffff;
@@ -99,8 +99,13 @@
 	a.button:active {
 		color:#ddd;
 	}
-	#logo a:hover:not(#byline) {
-		color:#ddd;
+	#logo {
+		a:hover:not(#byline) {
+			color:#ddd !important;
+		}
+		a:focus:not(#byline) {
+			color:white;
+		}
 	}
 
 	
