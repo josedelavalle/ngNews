@@ -12,7 +12,13 @@
 		medium: '(max-width: 980px)',
 		small: '(max-width: 736px)'
 	});
-
+	$.fn.goTo = function() {
+        $('html, body').animate({
+            scrollTop: $(this).offset().top + 'px'
+        }, 'slow');
+        $(this).focus();
+        return this; // for chaining...
+    };
 	$(function() {
 
 		var	$window = $(window),

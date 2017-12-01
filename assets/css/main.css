@@ -1037,8 +1037,13 @@ a.button:active {
 #logo a:focus:not(#byline) {
   color: white; }
 
+#news {
+  margin-top: 2em;
+  padding-top: 10px; }
+
 #newsSources {
-  width: 100% !important; }
+  width: 100% !important;
+  text-indent: 10px; }
 
 h1, h2, h3, h4, h5, h6 {
   color: #444;
@@ -1102,7 +1107,7 @@ article:last-child {
   margin-bottom: 0; }
 
 header {
-  margin: 0 0 2em 0; }
+  margin: 0 0 1em 0; }
   header h2, header h3 {
     margin: 0 0 0.25em 0; }
   header p {
@@ -1258,11 +1263,23 @@ table {
 
 @media screen and (max-width: 1280px) {
   #moreButton {
-    width: calc(100% - 25px); } }
+    width: calc(100% - 25px); }
+  #newsSources {
+    text-indent: 10px; } }
 
 @media screen and (max-width: 736px) {
   #moreButton {
-    width: calc(100% - 20px); } }
+    width: calc(100% - 20px); }
+  ::-webkit-input-placeholder {
+    text-align: center; }
+  :-moz-placeholder {
+    /* Firefox 18- */
+    text-align: center; }
+  ::-moz-placeholder {
+    /* Firefox 19+ */
+    text-align: center; }
+  :-ms-input-placeholder {
+    text-align: center; } }
 
 #moreButton {
   position: absolute;
@@ -1413,8 +1430,7 @@ ol.default {
     font-family: FontAwesome;
     font-style: normal;
     font-weight: normal;
-    text-transform: none !important;
-    padding-left: 0.5em; }
+    text-transform: none !important; }
   .icon > .label {
     display: none; }
 
@@ -1581,7 +1597,7 @@ ol.default {
   z-index: 8900; }
   #banner h2 {
     font-size: 3.5em;
-    margin: 0.1em 0 0.35em 0; }
+    margin: 0.1em 0 0.35em 30px; }
   #banner p {
     font-size: 2.75em;
     line-height: 1.35em;
@@ -1969,6 +1985,9 @@ ol.default {
 .margin-0 {
   margin: 0; }
 
+.margin-top-2em {
+  margin-top: 2em !important; }
+
 /* ANIMATIONS
 ============================================================================= */
 /* leaving animations ----------------------------------------- */
@@ -2017,11 +2036,3 @@ ol.default {
     transform: translateY(100%); }
   to {
     transform: translateY(0); } }
-
-.ng-enter {
-  animation: scaleUp 0.5s both ease-in-out;
-  z-index: 8888; }
-
-.ng-leave {
-  animation: slideOutLeft 0.3s both ease-in-out;
-  z-index: 8889; }

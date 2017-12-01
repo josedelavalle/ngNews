@@ -1,7 +1,34 @@
 <!-- Banner -->
 				<div id="banner-wrapper">
-					<div class="container">
+					<div id="banner" class="box container">
+						<h2>Compiled live internet news</h2>
+						<div class="row">
 
+							<div class="5u 12u(medium)">
+
+								<ul>
+									<!-- <input type="text" ng-model="$parent.message"> -->
+									<li><a id="bigButton" class="button big icon fa-arrow-circle-right" ng-click="goRandom()">explore</a></li>
+									<!-- <li><a href="#" class="button alt big icon fa-question-circle">another one	</a></li> -->
+									<input type="text" id="newsSources" placeholder="Pick a source, any source" ng-model="selected" uib-typeahead="thisSource.id as thisSource.name for thisSource in $parent.news.sources | filter:$viewValue" typeahead-focus typeahead-on-select="sourceSelected()" typeahead-focus-on-select="false">
+
+								</ul>
+
+							</div>
+
+							<div class="7u 12u(medium)">
+								
+								<p id="subhead"><a class="icon fa-newspaper-o" href="https://newsapi.org">
+								Pick from 70 of the largest outlets.</a></p>
+
+
+							</div>
+						</div>
+
+					</div>
+
+					<div class="container margin-top-2em" id="news">
+						
 						
 						<div class="row margin-0">
 							<div class="2u centered padding-0"><i ng-click="goToPrevSource()" class="fa fa-chevron-left fa-2x padding-0"></i></div>
@@ -21,31 +48,5 @@
 						</div>
 					</div>
 
-					<div id="banner" class="box container">
-
-						<div class="row">
-
-							<div class="5u 12u(medium)">
-
-								<ul>
-									<!-- <input type="text" ng-model="$parent.message"> -->
-									<li><a id="bigButton" class="button big icon fa-arrow-circle-right" ng-click="goRandom()">extra extra</a></li>
-									<!-- <li><a href="#" class="button alt big icon fa-question-circle">another one	</a></li> -->
-									<input type="text" id="newsSources" placeholder="Pick a source, any source" ng-model="selected" uib-typeahead="thisSource.id as thisSource.name for thisSource in $parent.news.sources | filter:$viewValue" typeahead-focus typeahead-on-select="sourceSelected()">
-
-								</ul>
-
-							</div>
-
-							<div class="7u 12u(medium)">
-								<h2>{{ $parent.message }}</h2>
-								<p id="subhead"><a class="icon fa-newspaper-o" href="https://newsapi.org">
-								Powered by News API</a></p>
-
-
-							</div>
-						</div>
-
-					</div>
-
+					
 				</div>

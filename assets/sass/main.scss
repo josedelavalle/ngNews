@@ -50,7 +50,7 @@
 	@-ms-viewport {
 		width: device-width;
 	}
-
+	
 	body {
 		@include vendor('background-image', ('linear-gradient(top, rgba(0, 0, 0, 0.05), rgba(0, 0, 0, 0))', 'url("images/bg01.png")'));
 		background-color: #f7f7f7;
@@ -79,6 +79,7 @@
 	}
 	#subhead {
 		vertical-align:baseline;
+		//display:none;
 	}
 	a {
 		color: #000000;
@@ -109,10 +110,13 @@
 	}
 
 	
-	
+	#news {
+		margin-top: 2em;
+		padding-top: 10px;
+	}
 	#newsSources {
 		width: 100% !important;
-		
+		text-indent: 10px;
 	}
 
 	h1, h2, h3, h4, h5, h6 {
@@ -193,7 +197,7 @@
 	}
 
 	header {
-		margin: 0 0 2em 0;
+		margin: 0 0 1em 0;
 
 		h2, h3 {
 			margin: 0 0 0.25em 0;
@@ -406,13 +410,33 @@
 		}
 	}
 	@include breakpoint(large) {
-			#moreButton {
+		#moreButton {
 			width: calc(100% - 25px);
 		}
+		#newsSources {
+
+			text-indent: 10px;
+		}
+
 	}
 	@include breakpoint(small) {
 			#moreButton {
 			width: calc(100% - 20px);
+		}
+		::-webkit-input-placeholder {
+		   text-align: center;
+		}
+
+		:-moz-placeholder { /* Firefox 18- */
+		   text-align: center;  
+		}
+
+		::-moz-placeholder {  /* Firefox 19+ */
+		   text-align: center;  
+		}
+
+		:-ms-input-placeholder {  
+		   text-align: center; 
 		}
 	}
 	#moreButton {
@@ -583,7 +607,7 @@
 			font-style: normal;
 			font-weight: normal;
 			text-transform: none !important;
-			padding-left:0.5em;
+			//padding-left:0.5em;
 		}
 
 		> .label {
@@ -823,7 +847,7 @@
 		z-index:8900;
 		h2 {
 			font-size: 3.5em;
-			margin: 0.1em 0 0.35em 0;
+			margin: 0.1em 0 0.35em 30px;
 		}
 
 		p {
@@ -1419,6 +1443,9 @@
 .margin-0 {
 	margin: 0;
 }
+.margin-top-2em {
+	margin-top: 2em !important;
+}
 
 
 /* ANIMATIONS
@@ -1463,5 +1490,12 @@
 }
 
 
-.ng-enter          { animation: scaleUp 0.5s both ease-in-out; z-index: 8888; }
-.ng-leave           { animation: slideOutLeft 0.3s both ease-in-out; z-index: 8889; }
+// .ng-enter  { 
+// 	animation: scaleUp 0.5s both ease-in-out;
+// 	z-index: 8888;
+// }
+
+// .ng-leave {
+// 	animation: slideOutLeft 0.3s both ease-in-out;
+// 	z-index: 8889;
+// }

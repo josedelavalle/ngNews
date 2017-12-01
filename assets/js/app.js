@@ -32,7 +32,7 @@ app.config(['$routeProvider', '$locationProvider', function($routeProvider, $loc
   });
 }]);
 
-app.controller('appController', function($scope, $location, getSourceData, newSourceFactory) {
+app.controller('appController', function($scope, $location, $anchorScroll, getSourceData, newSourceFactory) {
     var defaultSource = "associated-press", selectedIndex;
     $scope.message = "Read all about it";
     $scope.submessage = "Powered by News API";
@@ -92,6 +92,7 @@ app.controller('appController', function($scope, $location, getSourceData, newSo
         selectedIndex = newSelectedIndex;
         console.log('selectedindex', selectedIndex);
         setSource(selectedIndex);
+
     };
 
     setSource = function(selectedIndex) {
@@ -100,8 +101,21 @@ app.controller('appController', function($scope, $location, getSourceData, newSo
         $scope.source.name = $scope.news.sources[selectedIndex].name;
         $scope.source.category = $scope.news.sources[selectedIndex].category;
         $scope.goAPI($scope.news.sources[selectedIndex].id);
+        $("#news").goTo(); 
     };
+    var hideKeyboard = function() {
 
+      document.activeElement.blur();
+      var inputs = document.querySelectorAll('input');
+      for(var i = 0; i < inputs.length; i++) {
+        inputs[i].blur();
+      }
+      //$('#defocus').focus();
+    };
+    $scope.closeKeyboard = function(event){
+    if(event.keyCode == 13)
+         hideKeyboard();
+    };
     $scope.sourceSelected = function() {
       for (var i = 0, len = $scope.news.sources.length; i < len; i++) {
             if (this.selected == $scope.news.sources[i].id) {
@@ -115,6 +129,9 @@ app.controller('appController', function($scope, $location, getSourceData, newSo
         }
       $scope.goAPI(this.selected);
       this.selected = "";
+      $("#news").goTo();
+      hideKeyboard();
+      
     };
 
     $scope.goAPI = function(thisSource) {
