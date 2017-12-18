@@ -4,14 +4,18 @@
 
 
 			<!-- Features -->
-				<div id="features-wrapper">
-					<div class="container" id="work">
+				<div id="features-wrapper" class="padding-0">
+					<div class="container padding-0" id="work">
 
 
 						<div class="row images">
 							<div id="articleBox" class="col-xs-12 col-md-6 col-lg-4" ng-repeat="thisArticle in thisData">
-								<section class="box feature">
-									<a href="{{thisArticle.url}}" class="image featured from-left">
+								
+								<div class="box feature">
+									<div class="source-name" ng-if="source.name == 'Internet'">
+										<h3 class="margin-0">{{thisArticle.source.name}}</h3>
+									</div>
+									<a target="_blank" href="{{thisArticle.url}}" class="image featured from-left">
 
 										<img class="articleThumb" ng-src="{{thisArticle.urlToImage || errorMessages.image}}">
 
@@ -26,10 +30,10 @@
 									</div>
 									</a>
 
-									<a ng-href="{{thisArticle.url}}" id="moreButton" class="button centered icon fa-info-circle">keep reading</a>
+									<a target="_blank" ng-href="{{thisArticle.url}}" id="moreButton" class="button centered icon fa-info-circle">keep reading</a>
 
 
-								</section>
+								</div>
 
 							</div>
 						</div>

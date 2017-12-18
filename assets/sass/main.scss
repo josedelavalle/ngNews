@@ -81,6 +81,34 @@
 		vertical-align:baseline;
 		//display:none;
 	}
+	.source-name {
+		background: initial;
+		text-align: center;
+		word-break: break-all;
+	}
+	.margin-0 {
+		margin: 0 !important;
+	}
+	.padding-0 {
+		padding: 0 !important;
+	}
+	.search-bar {
+		display: flex;
+		button {
+			height: 50px;
+			padding: 5px 20px;
+			border-bottom-left-radius: 0px;
+			border-top-left-radius: 0px;
+		}
+	}
+	.pointer-hover {
+		&:hover {
+			cursor: pointer;
+		}
+	}
+	.full-width {
+		width: 100% !important;
+	}
 	a {
 		color: #000000;
 		// text-decoration: underline;
@@ -116,7 +144,12 @@
 	}
 	#newsSources {
 		width: 100% !important;
-		text-indent: 10px;
+		text-indent: 30px;
+		margin: 0 31px;
+	}
+	#searchString {
+		margin: 0;
+		text-indent: 30px;
 	}
 
 	h1, h2, h3, h4, h5, h6 {
@@ -413,15 +446,18 @@
 		#moreButton {
 			width: calc(100% - 25px);
 		}
-		#newsSources {
-
-			text-indent: 10px;
+		#newsSources, #searchString {
+			text-indent: 0px;
+			text-align: center;
 		}
 
 	}
 	@include breakpoint(small) {
-			#moreButton {
+		#moreButton {
 			width: calc(100% - 20px);
+		}
+		#newsSources {
+			margin: 0;
 		}
 		::-webkit-input-placeholder {
 		   text-align: center;
@@ -571,7 +607,7 @@
 
 			.inner {
 				margin-bottom:4em;
-				padding: 4em 2em 3em 2em;
+				padding: 2em;
 			}
 
 			h2 {
@@ -580,6 +616,7 @@
 
 			p {
 				margin: 0;
+				line-height: 1.7em;
 			}
 
 			.image {
@@ -852,7 +889,7 @@
 
 		p {
 			font-size: 2.75em;
-			line-height: 1.35em;
+			line-height: 1em;
 			margin: 0;
 		}
 		hr {

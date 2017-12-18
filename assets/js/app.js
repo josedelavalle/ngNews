@@ -5,34 +5,39 @@ app.config(['$routeProvider', '$locationProvider', function($routeProvider, $loc
   $routeProvider
    .when('/', {
     templateUrl: 'main.html',
-
-    // resolve: {
-    //   // I will cause a 1 second delay
-    //   delay: function($q, $timeout) {
-    //     var delay = $q.defer();
-    //     $timeout(delay.resolve, 1000);
-    //     return delay.promise;
-    //   }
-    // }
   })
   .when('/2', {
     templateUrl: 'left-sidebar.html',
-
   })
   .when('/3', {
   	templateUrl: 'right-sidebar.html',
-
   })
   .when('/4', {
   	templateUrl: 'no-sidebar.html',
-
   })
   .otherwise({
   	redirectTo: '/'
   });
 }]);
 
-app.controller('appController', function($scope, $location, $anchorScroll, getSourceData, newSourceFactory) {
+app.factory('newsFactory', function($http) {
+    var apiKey = "fd3dd1dc190444ebbfce01a08c3c3760";
+    return {
+      getSources: function () {
+        return $http.get('https://newsapi.org/v2/sources?language=en&apiKey=' + apiKey);
+      },
+      getNews: function (thisSource) {
+        var thisUrl = encodeURI("https://newsapi.org/v2/top-headlines?sources=" + thisSource + "&apiKey=" + apiKey);
+        return $http.get(thisUrl);
+      },
+      getNewsByKeyword: function(searchString) {
+        var thisUrl = encodeURI("https://newsapi.org/v2/everything?q=" + searchString + "&apiKey=" + apiKey);
+        return $http.get(thisUrl);
+      }
+    };
+});
+
+app.controller('appController', function($scope, $location, $anchorScroll, newsFactory) {
     var defaultSource = "associated-press", selectedIndex;
     $scope.message = "Read all about it";
     $scope.submessage = "Powered by News API";
@@ -46,20 +51,52 @@ app.controller('appController', function($scope, $location, $anchorScroll, getSo
       $scope.pageId = $location.path().replace("/", "");
       if (!$scope.pageId) $scope.pageId = '1';
     });
-    newSourceFactory.get().then(function (msg) {
-        for (var i = 0, len = msg.data.sources.length; i < len; i++) {
 
+    var doInit = function() {
+      getSources();
+      getNews(defaultSource);
+    };
+
+    var getSources = function() {
+      newsFactory.getSources().then(function (msg) {
+        for (var i = 0, len = msg.data.sources.length; i < len; i++) {
           if (msg.data.sources[i].id == defaultSource) {
-            $scope.source.description = msg.data.sources[i].description;
-            $scope.source.url = msg.data.sources[i].url;
-            $scope.source.name = msg.data.sources[i].name;
-            $scope.source.category = msg.data.sources[i].category;
+            $scope.source = msg.data.sources[i];
             selectedIndex = i;
             break;
           }
         }
         $scope.news = msg.data;
-    });
+      }).catch(function(e) {
+        console.log('error getting news sources', e);
+      });
+    };
+    
+
+    var getNews = function(source) {
+      newsFactory.getNews(source).then(function (msg) {
+          console.log(msg);
+          $scope.thisData = msg.data.articles;
+      });      
+    };
+
+    $scope.getNewsByWord = function(searchString) {
+      newsFactory.getNewsByKeyword(searchString).then(function (msg) {
+        $scope.thisData = msg.data.articles;
+        $scope.source.name = "Internet";
+        $scope.source.description = "Searched the web for '" + searchString + "'.  Happy reading!";
+        $("#news").goTo(); 
+        console.log('got news by word: ' + searchString, msg);
+      }).catch(function(e) {
+        console.log('error getting news by keyword: ' + searchString, e);
+      });
+    };
+
+    $scope.searchStringChanged = function(e) {
+      if (e.keyCode == 13) {
+        $scope.getNewsByWord($scope.searchString);
+      }
+    }
 
     $scope.goToNextSource = function() {
         if (selectedIndex == $scope.news.sources.length - 1) {
@@ -90,7 +127,7 @@ app.controller('appController', function($scope, $location, $anchorScroll, getSo
           newSelectedIndex = getRandomInt(0, $scope.news.sources.length - 1);
         }
         selectedIndex = newSelectedIndex;
-        console.log('selectedindex', selectedIndex);
+        //console.log('selectedindex', selectedIndex);
         setSource(selectedIndex);
 
     };
@@ -100,7 +137,7 @@ app.controller('appController', function($scope, $location, $anchorScroll, getSo
         $scope.source.url = $scope.news.sources[selectedIndex].url;
         $scope.source.name = $scope.news.sources[selectedIndex].name;
         $scope.source.category = $scope.news.sources[selectedIndex].category;
-        $scope.goAPI($scope.news.sources[selectedIndex].id);
+        getNews($scope.news.sources[selectedIndex].id);
         $("#news").goTo(); 
     };
     var hideKeyboard = function() {
@@ -119,47 +156,21 @@ app.controller('appController', function($scope, $location, $anchorScroll, getSo
     $scope.sourceSelected = function() {
       for (var i = 0, len = $scope.news.sources.length; i < len; i++) {
             if (this.selected == $scope.news.sources[i].id) {
-              $scope.source.description = $scope.news.sources[i].description;
-              $scope.source.url = $scope.news.sources[i].url;
-              $scope.source.name = $scope.news.sources[i].name;
-              $scope.source.category = $scope.news.sources[i].category;
+              $scope.source = $scope.news.sources[i];
               selectedIndex = i;
               break;
             }
         }
-      $scope.goAPI(this.selected);
+      getNews(this.selected);
       this.selected = "";
       $("#news").goTo();
       hideKeyboard();
       
     };
 
-    $scope.goAPI = function(thisSource) {
-        getSourceData.get(thisSource).then(function (msg) {
-          console.log(msg)
-            $scope.thisData = msg.data.articles;
-        });      
-    };
-    $scope.goAPI(defaultSource);
+    doInit();
  });
 
-app.factory('getSourceData', function($http) {
-    return {
-      get: function (thisSource) {
-          var thisURL = encodeURI("https://newsapi.org/v1/articles?source=" + thisSource + "&apiKey=fd3dd1dc190444ebbfce01a08c3c3760");
-          return $http.get(thisURL);
-      }
-    };
-});
-
-app.factory('newSourceFactory', function ($http) {
-    return {
-      get: function () {
-          return $http.get('https://newsapi.org/v1/sources?language=en');
-      }
-    };
-
-});
 
 app.directive('animateOnChange', function($timeout) {
     return function(scope, element, attr) {

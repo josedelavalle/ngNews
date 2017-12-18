@@ -10,8 +10,7 @@
 									<!-- <input type="text" ng-model="$parent.message"> -->
 									<li><a id="bigButton" class="button big icon fa-arrow-circle-right" ng-click="goRandom()">explore</a></li>
 									<!-- <li><a href="#" class="button alt big icon fa-question-circle">another one	</a></li> -->
-									<input type="text" id="newsSources" placeholder="Pick a source, any source" ng-model="selected" uib-typeahead="thisSource.id as thisSource.name for thisSource in $parent.news.sources | filter:$viewValue" typeahead-focus typeahead-on-select="sourceSelected()" typeahead-focus-on-select="false">
-
+									
 								</ul>
 
 							</div>
@@ -19,25 +18,41 @@
 							<div class="7u 12u(medium)">
 								
 								<p id="subhead"><a class="icon fa-newspaper-o" href="https://newsapi.org">
-								Pick from 70 of the largest outlets.</a></p>
+								Search the web for the news you care about.</a></p>
+								
 
+							</div>
+						</div>
+						<div class="row">
+							<div class="5u 12u(medium)">
+								<input type="text" id="newsSources" placeholder="Pick a source, any source" ng-model="selected" uib-typeahead="thisSource.id as thisSource.name for thisSource in $parent.news.sources | filter:$viewValue" typeahead-focus typeahead-on-select="sourceSelected()" typeahead-focus-on-select="false">
 
+							</div>
+							<div class="7u 12u(medium) search-bar">
+								<input type="text" id="searchString" ng-model="$parent.searchString" class="full-width" placeholder="Search By Keyword" ng-keypress="searchStringChanged($event)"/>
+								<button ng-click="getNewsByWord(searchString)">Go</button>
 							</div>
 						</div>
 
 					</div>
 
-					<div class="container margin-top-2em" id="news">
+					<div class="container margin-top-2em padding-0" id="news">
 						
 						
 						<div class="row margin-0">
-							<div class="2u centered padding-0"><i ng-click="goToPrevSource()" class="fa fa-chevron-left fa-2x padding-0"></i></div>
+							<div class="2u centered padding-0">
+								<i ng-click="goToPrevSource()" class="fa fa-chevron-left fa-2x padding-0 pointer-hover pull-left"></i>
+							</div>
 							<div class="8u centered padding-0" animate-on-change='$parent.source.name'>
 								<a target="_blank" ng-href="{{$parent.source.url}}">
-								<h2 class="margin-0">{{$parent.source.name.toUpperCase()}}</h2></a>
-								
+									<h2 class="margin-0">
+										{{$parent.source.name.toUpperCase()}}
+									</h2>
+								</a>
 							</div>
-							<div class="2u centered padding-0"><i ng-click="goToNextSource()" class="fa fa-chevron-right fa-2x padding-0"></i></div>
+							<div class="2u centered padding-0">
+								<i ng-click="goToNextSource()" class="fa fa-chevron-right fa-2x padding-0 pointer-hover pull-right"></i>
+							</div>
 						</div>
 						<div class="row">
 							<div class="12u centered">

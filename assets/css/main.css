@@ -1020,6 +1020,31 @@ input, select, textarea {
 #subhead {
   vertical-align: baseline; }
 
+.source-name {
+  background: initial;
+  text-align: center;
+  word-break: break-all; }
+
+.margin-0 {
+  margin: 0 !important; }
+
+.padding-0 {
+  padding: 0 !important; }
+
+.search-bar {
+  display: flex; }
+  .search-bar button {
+    height: 50px;
+    padding: 5px 20px;
+    border-bottom-left-radius: 0px;
+    border-top-left-radius: 0px; }
+
+.pointer-hover:hover {
+  cursor: pointer; }
+
+.full-width {
+  width: 100% !important; }
+
 a {
   color: #000000; }
   a:hover, a:focus {
@@ -1043,7 +1068,12 @@ a.button:active {
 
 #newsSources {
   width: 100% !important;
-  text-indent: 10px; }
+  text-indent: 30px;
+  margin: 0 31px; }
+
+#searchString {
+  margin: 0;
+  text-indent: 30px; }
 
 h1, h2, h3, h4, h5, h6 {
   color: #444;
@@ -1264,12 +1294,15 @@ table {
 @media screen and (max-width: 1280px) {
   #moreButton {
     width: calc(100% - 25px); }
-  #newsSources {
-    text-indent: 10px; } }
+  #newsSources, #searchString {
+    text-indent: 0px;
+    text-align: center; } }
 
 @media screen and (max-width: 736px) {
   #moreButton {
     width: calc(100% - 20px); }
+  #newsSources {
+    margin: 0; }
   ::-webkit-input-placeholder {
     text-align: center; }
   :-moz-placeholder {
@@ -1408,11 +1441,12 @@ ol.default {
     width: 100%; }
     .box.feature .inner {
       margin-bottom: 4em;
-      padding: 4em 2em 3em 2em; }
+      padding: 2em; }
     .box.feature h2 {
       font-size: 1.35em; }
     .box.feature p {
-      margin: 0; }
+      margin: 0;
+      line-height: 1.7em; }
     .box.feature .image {
       position: relative;
       margin: 0; }
@@ -1600,7 +1634,7 @@ ol.default {
     margin: 0.1em 0 0.35em 30px; }
   #banner p {
     font-size: 2.75em;
-    line-height: 1.35em;
+    line-height: 1em;
     margin: 0; }
   #banner hr {
     border-bottom: solid 1px #c9c9c9; }
