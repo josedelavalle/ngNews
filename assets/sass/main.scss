@@ -452,6 +452,15 @@
 		}
 
 	}
+	@include breakpoint(medium) {
+		#newsSources {
+			margin: 0;
+		}
+		button,
+		.button {
+			padding: 0.5em 0;
+		}
+	}
 	@include breakpoint(small) {
 		#moreButton {
 			width: calc(100% - 20px);
@@ -1035,7 +1044,7 @@
 				width: 100%;
 				text-align: center;
 				font-size: 1.35em;
-				padding: 0.85em 0 !important;
+				padding: 0.4em 0 !important;
 
 				&.icon {
 					padding-right: 0.75em !important;

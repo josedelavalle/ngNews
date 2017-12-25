@@ -1298,6 +1298,13 @@ table {
     text-indent: 0px;
     text-align: center; } }
 
+@media screen and (max-width: 980px) {
+  #newsSources {
+    margin: 0; }
+  button,
+  .button {
+    padding: 0.5em 0; } }
+
 @media screen and (max-width: 736px) {
   #moreButton {
     width: calc(100% - 20px); }
@@ -1720,7 +1727,7 @@ ol.default {
     width: 100%;
     text-align: center;
     font-size: 1.35em;
-    padding: 0.85em 0 !important; }
+    padding: 0.4em 0 !important; }
     input[type="button"].icon,
     input[type="submit"].icon,
     input[type="reset"].icon,
